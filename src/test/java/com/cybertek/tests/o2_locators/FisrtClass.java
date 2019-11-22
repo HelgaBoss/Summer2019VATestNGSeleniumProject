@@ -1,4 +1,4 @@
-package com.cybertek.tests;
+package com.cybertek.tests.o2_locators;
 
 import com.github.javafaker.Faker;
 
