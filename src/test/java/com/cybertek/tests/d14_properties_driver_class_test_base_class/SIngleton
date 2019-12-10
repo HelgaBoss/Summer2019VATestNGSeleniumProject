@@ -1,0 +1,4 @@
+Singleton - it's a design pattern
+The idea is to have only one object
+Does not USE explicit and implicit together
+EXPLICIT

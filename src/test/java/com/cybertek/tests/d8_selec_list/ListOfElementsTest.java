@@ -32,7 +32,7 @@ public class ListOfElementsTest {
         WebDriver driver = WebDriverFactory.getDriver("chrome");
         driver.get("http://practice.cybertekschool.com/multiple_buttons");
 
-        List<WebElement> buttons = driver.findElements((By.tagName("utton")));
+        List<WebElement> buttons = driver.findElements((By.tagName("button")));
         System.out.println(buttons.size());
     }
 }

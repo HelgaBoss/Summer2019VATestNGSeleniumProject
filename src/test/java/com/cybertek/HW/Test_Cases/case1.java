@@ -16,6 +16,7 @@ public class case1 {
 
     @BeforeMethod
     public void setupMethod() {
+
         driver = WebDriverFactory.getDriver("chrome");
     }
 
