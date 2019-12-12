@@ -41,25 +41,35 @@ public class TestBase {
     }
 
     @AfterTest
-    public void tearDownTest(){
+    public void tearDownTest() {
         report.flush();
     }
 
+
     @BeforeMethod
-    public void setupMethod() {
+    @Parameters("env")
+    public void setupMethod(@Optional String env) {
+        System.out.println("env = " + env);
+        // ENV IS null use default url,
+        // if ENV is not null, get the url based on env
+        if (env == null) {
+            url = ConfigurationReader.get("url");
+        } else {
+            url = ConfigurationReader.get(env + "_url");
+        }
+
         driver = Driver.get();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        url = ConfigurationReader.get("url");
-        driver.get(url);
+
         actions = new Actions(driver);
         driver.manage().window().maximize();
+        driver.get(url);
     }
 
     @AfterMethod
     public void teardown(ITestResult result) throws InterruptedException, IOException {
         // IF FAILED TAKE SCREENSHOT
-        // if the test failed
-        if(result.getStatus() == ITestResult.FAILURE){
+        if (result.getStatus() == ITestResult.FAILURE) {
             // record the name of the failed testcase
             extentLogger.fail(result.getName());
             // take screenshot and return location of the screenshot
@@ -77,4 +87,5 @@ public class TestBase {
         Thread.sleep(1000);
         Driver.closeDriver();
     }
+
 }

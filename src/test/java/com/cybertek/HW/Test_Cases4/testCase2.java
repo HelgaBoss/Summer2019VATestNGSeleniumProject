@@ -8,10 +8,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class testCase2 {
     WebDriverWait wait;
@@ -48,22 +50,27 @@ public class testCase2 {
         // 4. Click on “Grid Options” button
         WebElement gridOptions = driver.findElement(By.xpath("//a[@title ='Grid Settings']"));
         gridOptions.isSelected();
-
         // 5. Deselect all options except “Title”
-//        WebElement allOptions = driver.findElement(By.xpath("//tbody[@class='ui-sortable']"));
         Thread.sleep(1000);
-
 //        actions.moveToElement(allOptions).perform();
-        ArrayList<WebElement>deselect = new ArrayList<>();
-        for(int i = 2; i <= 7; i++) {
-            String actualXpath = "//tbody/tr["+ i +"]/td/label";
-            Thread.sleep(1000);
-
-
+        List<WebElement> titles = driver.findElements(By.xpath("//tbody[@class='ui-sortable']/tr/td[@class='title-cell']"));
+        List<WebElement> boxes = driver.findElements(By.xpath("//tbody[@class='ui-sortable']/tr/td[@class='visibility-cell']"));
+        for (int i = 0; i < titles.size(); i++) {
+        if(!titles.get(i).getText().equals("Title")){
+            boxes.get(i).click();
         }
+        else{
+            WebElement titlebox = driver.findElement(By.xpath("(//input[contains(@id,'column')])[1]"));
+            Assert.assertTrue(titlebox.isSelected());
+        }
+    }
+    WebElement titlebox = driver.findElement(By.xpath("(//input[contains(@id,'column')])[1]"));
+        Assert.assertTrue(titlebox.isSelected());
+    }
+
 
 
     }
-    }
+
 
 
